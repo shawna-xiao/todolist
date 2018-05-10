@@ -1,3 +1,4 @@
+import { StorageService } from './../services/storage.service';
 import { Component, OnInit, NgModule } from '@angular/core';
 
 @Component({
@@ -11,17 +12,24 @@ export class TodolistComponent implements OnInit {
 
   public list = [];
 
-  constructor() { }
+  constructor(private storageService: StorageService  ) { }
 
   ngOnInit() {
+    this.list = this.storageService.getItem('todoList') || [];
   }
 
   addUser(e) {
+    var obj, todoList = [];
     if (e.keyCode == 13 && this.username) {
-      var obj = {
+      obj = {
         status: 1,
         username: this.username
       }
+
+      todoList = this.storageService.getItem('todoList') || [];
+
+      todoList.push(obj);
+      this.storageService.setItem('todoList', todoList);
 
       this.list.push(obj);
       this.username = '';
@@ -30,10 +38,12 @@ export class TodolistComponent implements OnInit {
 
   deleteDate(key) {
     this.list.splice(key, 1);
+    this.storageService.setItem('todoList', this.list);
   }
 
   changeStatus(key) {
-    this.list[key].status = 2;
+    this.list[key].status = 3 - this.list[key].status;
+    this.storageService.setItem('todoList', this.list);
   }
 
 }

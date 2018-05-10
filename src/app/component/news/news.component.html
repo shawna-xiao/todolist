@@ -1,0 +1,21 @@
+<button (click)="requestGet()">
+  request get
+</button>
+
+<br/>
+<br/>
+
+<button (click)="requestJsonp()">
+  request jsonp
+</button>
+
+<br/>
+<br/>
+
+<button (click)="requestPost()">
+  request post
+</button>
+
+<ul>
+  <li *ngFor="let item of list.result">{{item.title}}</li>
+</ul>

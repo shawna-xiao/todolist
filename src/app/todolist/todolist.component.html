@@ -13,6 +13,7 @@
 <h2>已经完成</h2>
 <ul>
     <li *ngFor="let item of list; let key = index" [hidden]="item.status == 1">
+        <button (click)="changeStatus(key)">改变</button>
       {{item.username}}------ <button (click)="deleteDate(key)">删除</button>
     </li>
   </ul>
